@@ -157,13 +157,14 @@ var verif_message = 0;
 					event.preventDefault();
 
 
-					// Verif format input
 					var $code_postal = document.getElementById('email').value;
 					// On retire de la classe les failure
 					var $cn = $message.className;
 					var $rxp = new RegExp( /(?:^|\s)failure(?!\S)/g);
 					$cn = $cn.replace($rxp, '');
 					$message.className = $cn;
+					
+					// Verification code_postal format
 					if ($code_postal.length != 5 || !(/^\d+$/.test($code_postal)))
 					{
 						$message._show('failure', 'Code postal invalid');
@@ -171,7 +172,7 @@ var verif_message = 0;
 						return ;
 					}
 
-
+					// API request
 					$.getJSON("http://www.cp-ville.com/cpcom.php?jsoncallback=?", { cpcommune:$code_postal });
 
 					// Hide message.
